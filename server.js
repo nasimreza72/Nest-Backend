@@ -5,11 +5,13 @@ import userRouter from "./routes/userRouter.js";
 import houseRouter from "./routes/houseRouter.js";
 import reviewRouter from "./routes/reviewRouter.js";
 import messageRouter from "./routes/messageRouter.js";
+import { connectDb } from "./lib/db.js";
 
 const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(cors());
+connectDb();
 
 // routes
 app.use("/api/user",userRouter);
