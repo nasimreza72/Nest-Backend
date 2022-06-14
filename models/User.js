@@ -35,6 +35,7 @@ const userSchema = new Schema({
     chats:{type:[Schema.Types.ObjectId],ref:"chat"}
 })
 
+
 const User = model("user",userSchema);
 
 export default User;

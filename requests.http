@@ -1,0 +1,11 @@
+@url =  http://localhost:7777
+
+###
+
+post.{{url}}/register
+Content-Type: application/application/json
+
+{
+    "username": "Ronny Korneli",
+    "password": "Hey"
+}
