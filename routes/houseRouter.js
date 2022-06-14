@@ -19,9 +19,6 @@ houseRouter.get("/:city",(req,res)=>{
 
 // it will return the houses, we will send lat, long as query
 //(`api/house?lat='3324.342'&long='324234.324'`)
-houseRouter.get("/",(req,res)=>{  
-})
-
 // we will send the features and return the filtered houses
 houseRouter.get("/",(req,res)=>{  
 })

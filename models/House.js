@@ -40,7 +40,8 @@ const houseSchema = new Schema({
     price:{type:Number, default:0},
     reviews:{type:[Schema.Types.ObjectId], ref:"review"},
     // is the hosting finished
-    finished:{type:Boolean}
+    finished:{type:Boolean},
+    isTaken:{type:Boolean, default:false}
 })
 
 const House = model("house",houseSchema);
