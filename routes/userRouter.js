@@ -1,11 +1,18 @@
 import express from "express";
+import User from "../models/User.js"
+import jwt from 'jsonwebtoken'
 
 const userRouter = express.Router();
+const secret = "ztzt"
 
-userRouter.post("/login",(req,res)=>{
+
+//////////// LOGIN ///////////////////////////////
+userRouter.post("/login", async (req,res)=>{
 })
+///////////////////////////////////////////////////////////////////
 
-userRouter.post("/register",(req,res)=>{    
+userRouter.post("/register",(req,res)=>{
+        
 })
 
 userRouter.get("/getProfile",(req,res)=>{    
