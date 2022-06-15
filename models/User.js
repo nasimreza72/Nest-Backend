@@ -38,16 +38,31 @@ const userSchema = new Schema({
 })
 
 userSchema.statics.register = async function(data) {
-    console.log("this is Data" + data)
-    console.log(data.password)
-    const hashed = await hash(data.password)
-    data.password = hashed
+    console.log("this is Data" + data.loginInfo)
+    const hashed = await hash(data.loginInfo.password)
+    data.loginInfo.password = hashed
     console.log("this is data" + data)
     console.log("this is hash" + hashed)
-    const user = await User.create()
-    console.log("user" + user)
-    return await user
-}
-const User = model("user",userSchema);
+    console.log(data.loginInfo.password)
 
+    const user = await User.create(data)
+    console.log("user " + user)
+    return  user
+}
+
+userSchema.statics.login = async function(data) {
+    console.log("This is data " + data)
+    console.log("email",data.email)
+    console.log("passsord",data.password)
+    const user = await User.findOne({ loginInfo: data })
+    console.log("this is user " + user)
+
+    if (!user) { return false }
+
+    const success = await compareHashes(data.password, user.password)
+
+    return success ? user : false 
+  }
+
+const User = model("user",userSchema);
 export default User;
