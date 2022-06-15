@@ -1,6 +1,6 @@
-import  Mongoose from "mongoose";
+import  mongoose from "mongoose";
 
-const {Schema, model} = Mongoose();
+const {Schema, model} = mongoose;
 
 const unique = true;
 
