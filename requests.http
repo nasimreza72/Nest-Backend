@@ -5,12 +5,19 @@
 POST http://localhost:7777/api/user/register
 Content-Type: application/json
 
+
 {
-    "name": "Ronny Korneli",
-    "password":"horse"
-   
+    "loginInfo":{
+        "email":"horse@loaf",
+        "password":"horse"
+    }
 }
 
 ###
 
-GET http://localhost:7777/api/user/getProfile
+POST http://localhost:7777/api/user/login
+
+{
+    "email":"horse@bird",
+    "password":"horse"
+}
