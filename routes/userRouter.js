@@ -8,11 +8,11 @@ const secret = "ztzt"
 
 //////////// LOGIN ///////////////////////////////
 userRouter.post("/login", async (req,res)=>{
+    console.log("reg body " + req.body)
     const user = await User.login(req.body)
     console.log(user)
 
     if (user) {
-
         /////// TOKEN ..........................
         const payload = { 
             userId: user._id 
@@ -30,16 +30,10 @@ userRouter.post("/login", async (req,res)=>{
 
 userRouter.post("/register", async (req,res) => {
     console.log(req.body)
+    
+
     try{ 
         // const password = req.headers.password
-        // MAKING ADMINS.......................
-        //you can also make the first user of an application the admin, by changinging its role directly in Compass database
-        // req.body.role = (req.body.username === "Ronny" ? "admin" : "user") 
-
-        // if (req.body.email.endsWith("@your-company.com")) {
-        //     req.body.role = "admin"
-        // }
-        //..............................................................
         //req.body.password = password
         const user = await User.register(req.body)
 

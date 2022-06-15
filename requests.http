@@ -8,16 +8,21 @@ Content-Type: application/json
 
 {
     "loginInfo":{
-        "email":"nasim4@gmail.com",
-        "password":"nasim"
+
+        "email":"Fred",
+        "password":"horse"
+
+        
     }
 }
 
 ###
 
 POST http://localhost:7777/api/user/login
+Content-Type: application/json
+
 
 {
-    "email":"horse@bird",
-    "password":"horse"
+        "email":"Fred",
+        "password":"horse"
 }
