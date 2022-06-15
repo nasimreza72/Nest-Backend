@@ -1,6 +1,13 @@
 {
+  "name":"Nest",
+  "version":"0.0.0",
+  "private":true,
+  "scripts":{
+    "start":"nodemon server"
+  },
   "type": "module",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",

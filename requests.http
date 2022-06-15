@@ -2,10 +2,15 @@
 
 ###
 
-post.{{url}}/register
-Content-Type: application/application/json
+POST http://localhost:7777/api/user/register
+Content-Type: application/json
 
 {
-    "username": "Ronny Korneli",
-    "password": "Hey"
+    "name": "Ronny Korneli",
+    "password":"horse"
+   
 }
+
+###
+
+GET http://localhost:7777/api/user/getProfile
