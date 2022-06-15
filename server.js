@@ -4,7 +4,7 @@ import cors from "cors";
 import userRouter from "./routes/userRouter.js";
 import houseRouter from "./routes/houseRouter.js";
 import reviewRouter from "./routes/reviewRouter.js";
-import messageRouter from "./routes/messageRouter.js";
+import conversationRouter from "./routes/Conversation.js";
 import { connectDb } from "./lib/db.js";
 
 const app = express();
@@ -17,7 +17,7 @@ connectDb();
 app.use("/api/user",userRouter);
 app.use("/api/house",houseRouter);
 app.use("/api/review",reviewRouter);
-app.use("/api/message",messageRouter);
+app.use("/api/conversation",conversationRouter);
 
 app.use((req,res,next) => {
     next(createError( 404, `Resource ${req.method} ${req.url} not found` ))
