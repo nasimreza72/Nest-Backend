@@ -8,8 +8,11 @@ Content-Type: application/json
 
 {
     "loginInfo":{
+
         "email":"Fred",
         "password":"horse"
+
+        
     }
 }
 
