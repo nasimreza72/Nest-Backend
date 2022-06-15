@@ -34,7 +34,7 @@ const userSchema = new Schema({
     reasonForHosting:{type:String},
     houses:{type:[Schema.Types.ObjectId],ref:"house"},
     reviews:{type:[Schema.Types.ObjectId],ref:"review"},
-    chats:{type:[Schema.Types.ObjectId],ref:"chat"}
+    conversations:{type:[Schema.Types.ObjectId],ref:"conversation"}
 })
 
 userSchema.statics.register = async function(data) {
