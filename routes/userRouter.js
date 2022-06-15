@@ -11,11 +11,15 @@ userRouter.post("/login", async (req,res)=>{
 })
 ///////////////////////////////////////////////////////////////////
 
-userRouter.post("/register",(req,res)=>{
-        
+userRouter.post("/register", (req,res)=>{
+    console.log("some string")
+    res.send(req.body)
+    
 })
 
-userRouter.get("/getProfile",(req,res)=>{    
+userRouter.get("/getProfile",(req,res)=>{ 
+    console.log("string")
+    res.send({message: "hello"})   
 })
 
 userRouter.patch("/updateProfile",(req,res)=>{    

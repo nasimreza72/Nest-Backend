@@ -1,4 +1,6 @@
 import  mongoose from "mongoose";
+import { hash, compareHashes } from "../lib/crypto.js"
+
 
 const {Schema, model} = mongoose;
 
@@ -35,7 +37,14 @@ const userSchema = new Schema({
     chats:{type:[Schema.Types.ObjectId],ref:"chat"}
 })
 
+// userSchema.statics.register = async function(data) {
+//     console.log("this is from Model" + data)
+//     console.log(data.password)
+//     const hashed = await hash(data.password)
+//     data.password = hashed
 
+//     return User.create(data)
+// }
 const User = model("user",userSchema);
 
 export default User;
