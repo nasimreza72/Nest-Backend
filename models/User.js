@@ -54,12 +54,12 @@ userSchema.statics.login = async function(data) {
     console.log("This is data " + data)
     console.log("email",data.email)
     console.log("passsord",data.password)
-    const user = await User.findOne({ loginInfo: data })
+    const user = await User.findOne({"loginInfo.email":data.email})
     console.log("this is user " + user)
 
     if (!user) { return false }
 
-    const success = await compareHashes(data.password, user.password)
+    const success = await compareHashes(data.password, user.loginInfo.password)
 
     return success ? user : false 
   }
