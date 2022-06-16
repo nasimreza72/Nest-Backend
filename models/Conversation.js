@@ -7,8 +7,7 @@ const required=true;
 
 const messageSchema = new Schema({
     text:{type:String},
-    author:{type: Schema.Types.ObjectId, ref:"user"},
-    date:{type:Date, default:Date.now}
+    author:{type: Schema.Types.ObjectId, ref:"user"}
 },{timestamps:true})
 
 const conversationSchema = new Schema({
