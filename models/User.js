@@ -32,9 +32,9 @@ const userSchema = new Schema({
     address:{type:addressSchema},
     interests:{type:[String]},
     reasonForHosting:{type:String},
-    houses:{type:[Schema.Types.ObjectId],ref:"house"},
-    reviews:{type:[Schema.Types.ObjectId],ref:"review"},
-    conversations:{type:[Schema.Types.ObjectId],ref:"conversation"}
+    houses:{ type: Schema.Types.ObjectId, ref:"house" },
+    reviews:{ type: Schema.Types.ObjectId, ref:"review" },
+    conversations:{ type: Schema.Types.ObjectId, ref:"conversation" }
 })
 
 userSchema.statics.register = async function(data) {

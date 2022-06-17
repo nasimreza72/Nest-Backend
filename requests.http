@@ -8,9 +8,10 @@ Content-Type: application/json
 
 {
     "loginInfo": 
-        "email":"ronnykorneli@maili.com",
-        "password":"horhhih0000!!J"    
-
+    {
+        "email":"ronnykorneli@ma.com",
+        "password":"horhhih0000!!J", 
+        "role": "admin"
     }
 }
 
@@ -24,3 +25,15 @@ Content-Type: application/json
         "email":"Fred",
         "password":"horse"
 }
+
+###
+
+PATCH http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+Content-Type: application/json
+
+{
+    "loginInfo":{
+        "email":"gigno@Ginjo.de"
+    }
+}
+

@@ -13,8 +13,8 @@ const secret = "ztzt"
 
 
 //////////// LOGIN ///////////////////////////////
-userRouter.
-    post("/login", async (req,res)=>{
+userRouter
+    .post("/login", async (req,res)=>{
         const user = await User.login(req.body)
         console.log(user)
 
@@ -37,7 +37,7 @@ userRouter.
     .post("/register",
         userValidators, 
         async (req,res,next) => {
-            const errors = validationResult(req)
+            const errors = validationResult(req.body.loginInfo)
             if (!errors.isEmpty()) {
                 return res.status(400).send({
                     errors: errors.array().map(e => e.msg)
@@ -56,14 +56,42 @@ userRouter.
         }
     )
 
-    .get("/getProfile",(req,res)=>{ 
-  
-})
+    .get("/:id", async (req,res)=>{ 
+        try {
+            const user = await User.findById(req.params.id)
 
-userRouter.patch("/updateProfile",(req,res)=>{    
-})
+            if (!user) {
+                return next(createError(404, "User not found"))
+            }
+            res.send(user)
+        } catch (error) {
+            next(error)
+        }
+    })
 
-userRouter.delete("/deleteProfile",(req,res)=>{    
-})
+    .patch("/:id", async (req,res,next)=>{
+        try {
+            const queryOptions = { new: true, runValidators: true }
+            const id = req.params.id
+
+            const query = User.findByIdAndUpdate(id, req.body, queryOptions)
+            //query.populate("houses")
+            query.populate("reviews")
+            //query.populate("conversations")
+            
+            const question = await query.exec()
+
+            if (!question) {
+                return next(createError(404, "Question not found"))
+            }
+
+            res.send(question)
+        } catch (error) {
+            next(createError(400, error.message))
+        }
+    })
+
+    .delete("/deleteProfile",(req,res)=>{    
+    })
 
 export default userRouter;
