@@ -1,9 +1,9 @@
 {
-  "name":"nest",
-  "version":"0.0.0",
-  "private":true,
-  "scripts":{
-    "start":"nodemon server"
+  "name": "nest",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server"
   },
   "type": "module",
   "dependencies": {
