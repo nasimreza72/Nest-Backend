@@ -37,7 +37,7 @@ userRouter.
     .post("/register",
         userValidators, 
         async (req,res,next) => {
-            const errors = validationResult(req)
+            const errors = validationResult(req.body.loginInfo)
             if (!errors.isEmpty()) {
                 return res.status(400).send({
                     errors: errors.array().map(e => e.msg)

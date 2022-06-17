@@ -8,7 +8,8 @@ Content-Type: application/json
 
 {
     "loginInfo": 
-        "email":"ronnykorneli@maili.com",
+    {
+        "email":"ronnykorneli@ma.com",
         "password":"horhhih0000!!J"    
 
     }
