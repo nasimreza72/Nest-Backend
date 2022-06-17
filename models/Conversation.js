@@ -1,23 +1,22 @@
-import  Mongoose from "mongoose";
+import  mongoose from "mongoose";
 
-const {Schema, model} = Mongoose();
+const {Schema, model} = mongoose;
 
 const unique = true;
 const required=true;
 
 const messageSchema = new Schema({
     text:{type:String},
-    author:{type: Schema.Types.ObjectId, ref:"user"},
-    date:{type:date}
-},{timestamps})
+    author:{type: Schema.Types.ObjectId, ref:"user"}
+},{timestamps:true})
 
-const chatSchema = new Schema({
+const conversationSchema = new Schema({
     host:{type: Schema.Types.ObjectId, ref:"user"},
     user:{type: Schema.Types.ObjectId, ref:"user"},
     messages:{type:[messageSchema]},
     house:{type:Schema.Types.ObjectId,ref:"house"}
 })
 
-const Chat = model("message",chatSchema);
+const Conversation = model("conversation",conversationSchema);
 
-export default Chat;
+export default Conversation;

@@ -7,9 +7,10 @@ Content-Type: application/json
 
 
 {
-    "loginInfo":{
+    "loginInfo": 
         "email":"ronnykorneli@maili.com",
-        "password":"horhhih0000!!J"
+        "password":"horhhih0000!!J"    
+
     }
 }
 
