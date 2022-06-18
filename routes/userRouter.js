@@ -69,7 +69,7 @@ userRouter
         }
     })
 
-    .patch("/:id", async (req,res,next)=>{
+    .patch("/:id", async (req, res, next)=>{
         try {
             const queryOptions = { new: true, runValidators: true }
             const id = req.params.id
@@ -91,7 +91,19 @@ userRouter
         }
     })
 
-    .delete("/deleteProfile",(req,res)=>{    
+    .delete("/:id", async (req, res, next)=>{
+        try {
+            const user = await User.findById(req.params.id)
+
+            if (!user) {
+                return next(createError(404, "User not found"))
+            }
+
+            await user.remove()
+            res.send({ ok: true, deleted: user })
+        } catch (error) {
+            next(createError(400, error.message))
+        }
     })
 
 export default userRouter;

@@ -2,6 +2,8 @@
 
 ###
 
+
+// Register a new user or admin....................
 POST http://localhost:7777/api/user/register
 Content-Type: application/json
 
@@ -9,14 +11,15 @@ Content-Type: application/json
 {
     "loginInfo": 
     {
-        "email":"ronnykorneli@ma.com",
+        "email":"gogo@ma.com",
         "password":"horhhih0000!!J", 
         "role": "admin"
     }
 }
-
 ###
 
+
+//LOGIN user or HOst..............................
 POST http://localhost:7777/api/user/login
 Content-Type: application/json
 
@@ -25,15 +28,27 @@ Content-Type: application/json
         "email":"Fred",
         "password":"horse"
 }
-
 ###
 
+
+// Update user/Host...................................... 
 PATCH http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
 Content-Type: application/json
 
 {
     "loginInfo":{
-        "email":"gigno@Ginjo.de"
+        "email":"Benji@Ginjo.de"
     }
 }
+###
+
+// Get the User or Host by ID........................
+GET http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+Content-Type: application/json
+
+###
+
+
+// Delete the user/Host
+DELETE http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
 
