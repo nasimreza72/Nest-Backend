@@ -6,7 +6,8 @@ import User from '../models/User.js'
 function checkToken(req,res,next) {
 
     //const { SECRET } = process.env
-    const secret = "ztzt"
+    const secret = process.env.SECRET
+
     try {
         const tokenRaw = req.headers["authorization"]
         const token = tokenRaw && tokenRaw.split(" ")[1]
