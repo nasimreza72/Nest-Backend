@@ -11,9 +11,9 @@ Content-Type: application/json
 {
     "loginInfo": 
     {
-        "email":"gogo@ma.com",
-        "password":"horhhih0000!!J", 
-        "role": "admin"
+        "email":"mfufu@ma.com",
+        "password":"love", 
+        "role": "host"
     }
 }
 ###
@@ -51,4 +51,9 @@ Content-Type: application/json
 
 // Delete the user/Host
 DELETE http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+
+###
+DELETE http://localhost:7777/api/user/62abfe0d2b2d908b35a5bb91
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmFiZmUwZDJiMmQ5MDhiMzVhNWJiOTEiLCJpYXQiOjE2NTU3MjI4MjEsImV4cCI6MTY1NTcyNDYyMX0.LTTzJnX-oAdHm7n4T0cQq37aiE24iVklVboRZ8MUbK8
+
 

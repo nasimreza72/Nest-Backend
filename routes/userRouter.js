@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { body, validationResult } from 'express-validator'
 import userValidators from '../validators/userValidators.js'
 import createError from 'http-errors'
-
+import checkToken from "../middleware/checkToken.js"
 
 
 
@@ -27,7 +27,7 @@ userRouter
                     expiresIn: "30m"
             }
             const token = jwt.sign(payload,secret,options)
-            console.log(token)
+            console.log("This is token " + token)
             return res.send({ ...user.toJSON(), token}).status({ Login: 'sucess!!' })
     }
     res.status(404).send({ error: "wrong creds" })
@@ -56,7 +56,7 @@ userRouter
         }
     )
 
-    .get("/:id", async (req,res)=>{ 
+    .get("/:id", checkToken, async (req,res)=>{ 
         try {
             const user = await User.findById(req.params.id)
 
@@ -69,7 +69,7 @@ userRouter
         }
     })
 
-    .patch("/:id", async (req, res, next)=>{
+    .patch("/:id", checkToken, async (req, res, next)=>{
         try {
             const queryOptions = { new: true, runValidators: true }
             const id = req.params.id
@@ -91,7 +91,8 @@ userRouter
         }
     })
 
-    .delete("/:id", async (req, res, next)=>{
+    .delete("/:id", checkToken, async (req, res, next)=>{
+            console.log("You got through")
         try {
             const user = await User.findById(req.params.id)
 

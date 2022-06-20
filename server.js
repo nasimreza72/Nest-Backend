@@ -7,6 +7,7 @@ import reviewRouter from "./routes/reviewRouter.js";
 import conversationRouter from "./routes/Conversation.js";
 import { connectDb } from "./lib/db.js";
 import createError from "http-errors"
+import checkToken from "./middleware/checkToken.js"
 
 
 const app = express();
