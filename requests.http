@@ -11,7 +11,7 @@ Content-Type: application/json
 {
     "loginInfo": 
     {
-        "email":"mfufu@ma.com",
+        "email":"fun@moon.com",
         "password":"love", 
         "role": "host"
     }
@@ -25,8 +25,8 @@ Content-Type: application/json
 
 
 {
-        "email":"Fred",
-        "password":"horse"
+         "email":"fun@moon.com",
+         "password":"love"
 }
 ###
 

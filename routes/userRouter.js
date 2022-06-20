@@ -9,15 +9,13 @@ import checkToken from "../middleware/checkToken.js"
 
 
 const userRouter = express.Router();
-const secret = "ztzt"
 
 
 //////////// LOGIN ///////////////////////////////
 userRouter
     .post("/login", async (req,res)=>{
-        const user = await User.login(req.body)
-        console.log(user)
 
+        const user = await User.login(req.body)
         if (user) {
             /////// TOKEN ..........................
             const payload = { 
@@ -26,8 +24,7 @@ userRouter
             const options ={
                     expiresIn: "30m"
             }
-            const token = jwt.sign(payload,secret,options)
-            console.log("This is token " + token)
+            const token = jwt.sign(payload,process.env.SECRET,options)
             return res.send({ ...user.toJSON(), token}).status({ Login: 'sucess!!' })
     }
     res.status(404).send({ error: "wrong creds" })
