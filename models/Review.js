@@ -6,12 +6,12 @@ const unique = true;
 const required=true;
 
 const reviewSchema = new Schema({
-    author:{type: Schema.Types.ObjectId, ref:"user",required},
+    authorId:{type: Schema.Types.ObjectId, ref:"user",required},
     text:{type:String,required},
-    house:{type:Schema.Types.ObjectId,ref:"house", required},
+    houseId:{type:Schema.Types.ObjectId,ref:"house", required},
     rate:{type:Number, enum:[1,2,3,4,5], required}
 })
 
-const Review = model("message",reviewSchema);
+const Review = model("review",reviewSchema);
 
 export default Review;

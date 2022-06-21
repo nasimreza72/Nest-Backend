@@ -3,7 +3,6 @@ import { hash, compareHashes } from "../lib/crypto.js"
 import House from "../models/House.js"
 import Review from "../models/Review.js";
 
-
 const {Schema, model} = mongoose;
 
 const unique = true;
