@@ -2,27 +2,58 @@
 
 ###
 
+
+// Register a new user or admin....................
 POST http://localhost:7777/api/user/register
 Content-Type: application/json
 
 
 {
-    "loginInfo":{
-
-        "email":"Fred",
-        "password":"horse"
-
-        
+    "loginInfo": 
+    {
+        "email":"fun@moon.com",
+        "password":"love", 
+        "role": "host"
     }
 }
-
 ###
 
+
+//LOGIN user or HOst..............................
 POST http://localhost:7777/api/user/login
 Content-Type: application/json
 
 
 {
-        "email":"Fred",
-        "password":"horse"
+         "email":"fun@moon.com",
+         "password":"love"
 }
+###
+
+
+// Update user/Host...................................... 
+PATCH http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+Content-Type: application/json
+
+{
+    "loginInfo":{
+        "email":"Benji@Ginjo.de"
+    }
+}
+###
+
+// Get the User or Host by ID........................
+GET http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+Content-Type: application/json
+
+###
+
+
+// Delete the user/Host
+DELETE http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+
+###
+DELETE http://localhost:7777/api/user/62abfe0d2b2d908b35a5bb91
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmFiZmUwZDJiMmQ5MDhiMzVhNWJiOTEiLCJpYXQiOjE2NTU3MjI4MjEsImV4cCI6MTY1NTcyNDYyMX0.LTTzJnX-oAdHm7n4T0cQq37aiE24iVklVboRZ8MUbK8
+
+
