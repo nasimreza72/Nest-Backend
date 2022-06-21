@@ -1,7 +1,6 @@
 import  mongoose from "mongoose";
 import { hash, compareHashes } from "../lib/crypto.js"
 
-
 const {Schema, model} = mongoose;
 
 const unique = true;

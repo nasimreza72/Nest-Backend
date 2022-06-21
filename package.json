@@ -1,9 +1,9 @@
 {
-  "name":"nest",
-  "version":"0.0.0",
-  "private":true,
-  "scripts":{
-    "start":"nodemon server"
+  "name": "nest",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server"
   },
   "type": "module",
   "dependencies": {
@@ -14,6 +14,7 @@
     "express-validator": "^6.14.1",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.6"
+    "mongoose": "^6.3.6",
+    "socket.io": "^4.5.1"
   }
 }
