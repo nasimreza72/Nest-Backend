@@ -26,9 +26,10 @@ function checkToken(req,res,next) {
                 .then(user => {
                         req.userData = {
                             userId: user._id,
-                            username: user.username,
+                            email: user.email,
                             role: user.role
                     }
+                    console.log("this is user from checkToken----" + user)
                     next()
                 })
                 .catch(e => {
