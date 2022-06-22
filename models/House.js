@@ -12,15 +12,15 @@ const addressSchema = new Schema({
     zip:{type:Number},
     city:{type:String, required},
     country:{type:String, required},
-})
+},{_id:false})
 
 const houseSchema = new Schema({
-    host: { type: Schema.Types.ObjectId, ref: "user", required },
+    hostID: { type: Schema.Types.ObjectId, ref: "user", required },
+    typeofPlace:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"], default: "House"},
+    address:{type:addressSchema},
     title:{type:String, required},
     rating:{type:Number},
-    address:{type:addressSchema},
     description:{type:String, required},
-    typeofHouse:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"]},
     guests:{
         adult:{type:Number, required, default:1},
         kids:{type:Number, required, default:0},

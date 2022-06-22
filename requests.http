@@ -2,7 +2,6 @@
 
 ###
 
-
 // Register a new user or admin....................
 POST http://localhost:7777/api/user/register
 Content-Type: application/json
@@ -52,3 +51,38 @@ Content-Type: application/json
 // Delete the user/Host
 DELETE http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
 
+
+
+
+
+###
+
+
+// Create Host account
+
+POST http://localhost:7777/api/house/create
+Content-Type: application/json
+
+{
+        "hostID": "62aafbfae396b03c82def4e1",
+        "address":{
+            "street":"stockholmer str ",
+            "houseNumber":33,
+            "zip": 13359,
+            "city":"Hamburg",
+            "country": "germany"
+        },
+        "title": "wonderful house",
+        "rating": 4.75,
+        "description": "summery place and have nice garden infront",
+        "guests": {
+            "beds": 2
+        },
+        "amenities": {
+            "kitchen": true
+        }
+
+
+}
+
+#### Get House
