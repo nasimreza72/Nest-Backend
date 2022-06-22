@@ -1,11 +1,23 @@
 import express from "express";
+import House from "../models/House.js"
+
 
 const houseRouter = express.Router();
 
-houseRouter.post("/create",(req,res)=>{
+
+houseRouter.post("/create", async (req,res)=>{
+
+  try {
+    const houses = await House.create(req.body)
+    res.send(houses)
+
+} catch (error) {
+    console.log(error);
+}  
 })
 
 // it will return house informations
+
 houseRouter.get("/:houseId",(req,res)=>{    
 })
 
