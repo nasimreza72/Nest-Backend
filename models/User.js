@@ -3,7 +3,6 @@ import { hash, compareHashes } from "../lib/crypto.js"
 import House from "../models/House.js"
 import Review from "../models/Review.js";
 
-
 const {Schema, model} = mongoose;
 
 const unique = true;
@@ -41,15 +40,10 @@ const userSchema = new Schema({
 }, { timestamps })
 
 userSchema.statics.register = async function(data) {
-    console.log("this is Data" + data.loginInfo)
     const hashed = await hash(data.loginInfo.password)
     data.loginInfo.password = hashed
-    console.log("this is data" + data)
-    console.log("this is hash" + hashed)
-    console.log(data.loginInfo.password)
 
     const user = await User.create(data)
-    console.log("user " + user)
     return  user
 }
 

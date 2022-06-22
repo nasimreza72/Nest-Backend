@@ -4,20 +4,19 @@ import jwt from 'jsonwebtoken'
 import { body, validationResult } from 'express-validator'
 import userValidators from '../validators/userValidators.js'
 import createError from 'http-errors'
-
+import checkToken from "../middleware/checkToken.js"
+import checkHost from "../middleware/checkHost.js"
 
 
 
 const userRouter = express.Router();
-const secret = "ztzt"
 
 
 //////////// LOGIN ///////////////////////////////
 userRouter
     .post("/login", async (req,res)=>{
-        const user = await User.login(req.body)
-        console.log(user)
 
+        const user = await User.login(req.body)
         if (user) {
             /////// TOKEN ..........................
             const payload = { 
@@ -26,24 +25,25 @@ userRouter
             const options ={
                     expiresIn: "30m"
             }
-            const token = jwt.sign(payload,secret,options)
-            console.log(token)
+            const token = jwt.sign(payload,process.env.SECRET,options)
             return res.send({ ...user.toJSON(), token}).status({ Login: 'sucess!!' })
     }
     res.status(404).send({ error: "wrong creds" })
 })
 ///////////////////////////////////////////////////////////////////
 
-    .post("/register",
+    .post("/register", 
         userValidators, 
         async (req,res,next) => {
+            console.log("inside register ", req.body)
+            try{ 
+
             const errors = validationResult(req.body.loginInfo)
             if (!errors.isEmpty()) {
                 return res.status(400).send({
                     errors: errors.array().map(e => e.msg)
                 })
             }
-            try{ 
                 // const password = req.headers.password
                 //req.body.password = password
                 const user = await User.register(req.body)
@@ -56,7 +56,7 @@ userRouter
         }
     )
 
-    .get("/:id", async (req,res)=>{ 
+    .get("/:id", checkToken, async (req,res)=>{ 
         try {
             const user = await User.findById(req.params.id)
 
@@ -69,7 +69,7 @@ userRouter
         }
     })
 
-    .patch("/:id", async (req, res, next)=>{
+    .patch("/:id", checkToken, async (req, res, next)=>{
         try {
             const queryOptions = { new: true, runValidators: true }
             const id = req.params.id
@@ -91,7 +91,8 @@ userRouter
         }
     })
 
-    .delete("/:id", async (req, res, next)=>{
+    .delete("/:id", checkToken,  async (req, res, next)=>{
+            console.log("You got through")
         try {
             const user = await User.findById(req.params.id)
 

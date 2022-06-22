@@ -10,10 +10,10 @@ Content-Type: application/json
 {
     "loginInfo": 
     {
-        "email":"gogo@ma.com",
-        "password":"horhhih0000!!J", 
-        "role": "admin"
-    }
+        "email":"kkkkkkk@web.de",
+        "password":"r6567JJölöpbbb"
+    },
+    "role": "user"
 }
 ###
 
@@ -24,8 +24,9 @@ Content-Type: application/json
 
 
 {
-        "email":"Fred",
-        "password":"horse"
+        "email":"kkkkkkk@web.de",
+        "password":"r6567JJölöpbbb"
+         
 }
 ###
 
@@ -38,6 +39,7 @@ Content-Type: application/json
     "loginInfo":{
         "email":"Benji@Ginjo.de"
     }
+    
 }
 ###
 
@@ -47,11 +49,8 @@ Content-Type: application/json
 
 ###
 
-
 // Delete the user/Host
 DELETE http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
-
-
 
 
 
@@ -86,3 +85,10 @@ Content-Type: application/json
 }
 
 #### Get House
+
+###
+DELETE http://localhost:7777/api/user/62b18ebea4f42aab7f67e0f1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmIxOGViZWE0ZjQyYWFiN2Y2N2UwZjEiLCJpYXQiOjE2NTU4MDM1OTQsImV4cCI6MTY1NTgwNTM5NH0.gdC_xpC5be4MojAQfY7xqPkzBDr40Pg2UaQoP08zsuY 
+
+
+

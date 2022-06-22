@@ -7,14 +7,14 @@ const required=true;
 
 const messageSchema = new Schema({
     text:{type:String},
-    author:{type: Schema.Types.ObjectId, ref:"user"}
+    authorId:{type: Schema.Types.ObjectId, ref:"user"}
 },{timestamps:true})
 
 const conversationSchema = new Schema({
-    host:{type: Schema.Types.ObjectId, ref:"user"},
-    user:{type: Schema.Types.ObjectId, ref:"user"},
+    hostId:{type: Schema.Types.ObjectId, ref:"user"},
+    userId:{type: Schema.Types.ObjectId, ref:"user"},
     messages:{type:[messageSchema]},
-    house:{type:Schema.Types.ObjectId,ref:"house"}
+    houseId:{type:Schema.Types.ObjectId,ref:"house"}
 })
 
 const Conversation = model("conversation",conversationSchema);
