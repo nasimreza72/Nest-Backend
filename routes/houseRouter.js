@@ -69,3 +69,4 @@ houseRouter.get("/getCity/:city", async(req, res) => {
 houseRouter.get("/", (req, res) => {})
 
 export default houseRouter;
+
