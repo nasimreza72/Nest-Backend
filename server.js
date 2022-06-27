@@ -9,6 +9,8 @@ import { connectDb } from "./lib/db.js";
 import createError from "http-errors"
 import http from "http";
 import {Server as socketio} from "socket.io";
+import checkToken from "./middleware/checkToken.js"
+
 
 const app = express();
 const httpServer = http.createServer(app);
