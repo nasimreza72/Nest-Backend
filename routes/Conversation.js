@@ -38,7 +38,6 @@ conversationRouter.patch("/:conversationId", async(req,res,next)=>{
     } catch (error) {
         next(createError(400, error.message));
     }
-    
 })
 
 // messageRouter.delete("/:....",(req,res)=>{    
