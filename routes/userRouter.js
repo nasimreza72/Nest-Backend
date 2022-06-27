@@ -79,13 +79,13 @@ userRouter
             query.populate("reviews")
             //query.populate("conversations")
             
-            const question = await query.exec()
+            const user = await query.exec()
 
-            if (!question) {
-                return next(createError(404, "Question not found"))
+            if (!user) {
+                return next(createError(404, "User not found"))
             }
 
-            res.send(question)
+            res.send(user)
         } catch (error) {
             next(createError(400, error.message))
         }
