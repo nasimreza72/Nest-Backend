@@ -29,7 +29,6 @@ function checkToken(req,res,next) {
                             email: user.email,
                             role: user.role
                     }
-                    console.log("this is user from checkToken----" + user)
                     next()
                 })
                 .catch(e => {
