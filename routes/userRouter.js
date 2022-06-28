@@ -16,6 +16,9 @@ const userRouter = express.Router();
 userRouter
     .post("/login", async (req,res)=>{
 
+        // console.log("you are init+++++++++++++")
+        // res.send(req.body)
+        console.log("req.body.loginInfo ++++++++++++++++++++++++++++", req.body)
         const user = await User.login(req.body)
         if (user) {
             /////// TOKEN ..........................

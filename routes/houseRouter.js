@@ -1,8 +1,16 @@
 import express from "express";
 import House from "../models/House.js";
 import User from "../models/User.js";
+import multer from "multer";
+import path from "path";
+import { query } from "express-validator";
 
 const houseRouter = express.Router();
+
+
+const multerOptions = { dest: "uploads/" };
+const upload = multer(multerOptions);
+
 
 houseRouter.post("/create", async (req, res) => {
   try {
@@ -26,17 +34,45 @@ houseRouter.get("/:houseId", async (req, res) => {
   }
 });
 
-// it will update the house (to use hosting)
-// houseRouter.patch("/:houseId", (req, res) => {
-houseRouter.patch("/create", async (req, res) => {
-  const options = { new: true, runValidators: true };
+//  Image Uploading in hosting page
+
+const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
+
+houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
+  // const options = { new: true, runValidators: true };
+
+  console.log("req ---->", req.files.selectedFile);
+  console.log("params---->", req.params.id);
+
   try {
-    const house = await House.findOneAndUpdate(req.body._id, req.body, options);
-    res.send(house);
+    const selectedHouse = await House.findByIdAndUpdate(
+      { _id: req.params.id },
+      { images: req.files.selectedFile }
+    );
+    res.send({ fileID: req.params.id });
+
+    // delete req.body._id
+    // const updatedHouse = await selectedHouse.updateOne({
+    //   $push: { images: req.body.images },
+    // });
   } catch (error) {
     console.log(error);
   }
 });
+
+////////// Get image after Upload
+
+houseRouter.get("/getImage/:id", async (req, res) => {
+  try {
+    const file = await House.findById(req.params.id);
+    const absolutePath = path.resolve(file.images[0].path);
+    res.sendFile(absolutePath);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//////////   End of Get image
 
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {

@@ -24,8 +24,8 @@ Content-Type: application/json
 
 
 {
-        "email":"kkkkkkk@web.de",
-        "password":"r6567JJölöpbbb"
+        "email":"ponni@hof",
+        "password":"123RonRon!!!"
          
 }
 ###
@@ -65,24 +65,31 @@ POST http://localhost:7777/api/house/create
 Content-Type: application/json
 
 {
-        "hostID": "62aafbfae396b03c82def4e8",
+        "hostID": "62aafbfae396b03c82def4e9",
         "address":{
-            "street":"wasgenstraße",
-            "houseNumber":75,
-            "zip": 12134,
-            "city":"Berlin",
+            "street":"amrumer Staße",
+            "houseNumber":26,
+            "zip": 18359,
+            "city": "Hannover",
             "country": "Germany"
         },
-        "title": "1 Bed rooms apartment",
-        "rating": 3.75,
-        "description": "Ideal place for small family",
+        "title": "3 Bed rooms apartment",
+        "rating": 4.5,
+        "description": "Cosy place for small family",
         "guests": {
-            "beds": 2,
-            "kids": 1,
-            "adult": 2
+            "beds": 4,
+            "kids": 2,
+            "adult": 4
         },
         "amenities": {
             "kitchen": true
+        },
+        "images" : {      
+            "originalname": "20211018_194222.jpg",
+            "mimetype": "image/jpeg",
+            "filename": "48f118fa9a81151eccc02538c8073b06",
+            "path": "uploads/48f118fa9a81151eccc02538c8073b06",
+            "size": 196992
         }
 
 }
@@ -95,29 +102,17 @@ Content-Type: application/json
 
 ### Update House
 
-PATCH  http://localhost:7777/api/house/create
+PATCH  http://localhost:7777/api/house/update
 Content-Type: application/json
 
 {
-    "_id":"62b1ad1ebe8b0ff3d23bc33d",
-        "hostID": "62aafbfae396b03c82def4e8",
-        "address":{
-            "street":"madargasker straße",
-            "houseNumber":912,
-            "zip": 62359,
-            "city":"hamburg",
-            "country": "Germany"
-        },
-        "title": "3 Bed rooms apartment",
-        "rating": 4.75,
-        "description": "Ideal place for small family",
-        "guests": {
-            "beds": 3,
-            "kids": 3,
-            "adult": 1
-        },
-        "amenities": {
-            "kitchen": true
+  "_id": "62bb0babcbef293a496d4b63",
+  "images" : {      
+            "originalname": "20211018_194222.jpg",
+            "mimetype": "image/jpeg",
+            "filename": "48f118fa9a81151eccc02538c8073b06",
+            "path": "uploads/48f118fa9a81151eccc02538c8073b06",
+            "size": 161089
         }
 }
 
