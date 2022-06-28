@@ -37,7 +37,15 @@ const userSchema = new Schema({
     houses:{ type: Schema.Types.ObjectId, ref:"house" },
     reviews:{ type: Schema.Types.ObjectId, ref:"review" },
     conversations:{ type: Schema.Types.ObjectId, ref:"conversation" }
-}, { timestamps })
+}, { 
+    timestamps,
+    toJSON: {
+        transform(doc, ret) {
+        delete ret.loginInfo.password;
+        delete ret.__v;
+        },
+    }, 
+})
 
 // This code creates a new User/Host and Hashes the 
 // password for the database
