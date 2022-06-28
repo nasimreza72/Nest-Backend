@@ -37,7 +37,15 @@ const userSchema = new Schema({
     houses:{ type: Schema.Types.ObjectId, ref:"house" },
     reviews:{ type: Schema.Types.ObjectId, ref:"review" },
     conversations:{ type: Schema.Types.ObjectId, ref:"conversation" }
-}, { timestamps })
+}, { 
+    timestamps,
+    toJSON: {
+        transform(doc, ret) {
+        delete ret.loginInfo.password;
+        delete ret.__v;
+        },
+    }, 
+})
 
 userSchema.statics.register = async function(data) {
     const hashed = await hash(data.loginInfo.password)
