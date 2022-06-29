@@ -81,21 +81,6 @@ houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   }
 });
 
-// houseRouter.get("/getSecondImage/:id", async (req, res) => {
-//   try {
-//     const file = await House.findById(req.params.id);
-
-//     console.log('file :>> ', file);
-
-//     const absolutePath = path.resolve(file.images[ file.images.length -1 ].path);
-//     res.sendFile(absolutePath);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-//////////   End of Get image
-
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {
   try {
