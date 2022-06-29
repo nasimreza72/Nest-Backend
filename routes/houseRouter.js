@@ -71,28 +71,28 @@ houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
 
 ////////// Get image after Upload
 
-houseRouter.get("/getImage/:id", async (req, res) => {
+houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   try {
     const file = await House.findById(req.params.id);
-    const absolutePath = path.resolve(file.images[0].path);
+    const absolutePath = path.resolve(file.images[req.params.imageNumber].path);
     res.sendFile(absolutePath);
   } catch (error) {
     console.log(error);
   }
 });
 
-houseRouter.get("/getSecondImage/:id", async (req, res) => {
-  try {
-    const file = await House.findById(req.params.id);
+// houseRouter.get("/getSecondImage/:id", async (req, res) => {
+//   try {
+//     const file = await House.findById(req.params.id);
 
-    console.log('file :>> ', file);
+//     console.log('file :>> ', file);
 
-    const absolutePath = path.resolve(file.images[ file.images.length -1 ].path);
-    res.sendFile(absolutePath);
-  } catch (error) {
-    console.log(error);
-  }
-});
+//     const absolutePath = path.resolve(file.images[ file.images.length -1 ].path);
+//     res.sendFile(absolutePath);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
 
 //////////   End of Get image
 
