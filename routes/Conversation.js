@@ -49,9 +49,14 @@ conversationRouter.post("/create",async(req,res,next)=>{
 conversationRouter.get("/:conversationId", async(req,res, next)=>{
     try {
         const conversationId = req.params.conversationId;
-        const conversation = await Conversation.find({_id:conversationId});
-        if(!conversation) next(createError(404,"Conversation not found"));
-        else res.send(conversation);
+        const query =  Conversation.findById(conversationId);
+        if(!query) next(createError(404,"Conversation not found"));
+        else{
+            query.populate("houseId","images title");
+            query.populate("hostId")
+            const conversation = await query.exec();
+            res.send(conversation);
+        } 
     } catch (error) {
         next(createError(400, error.message));
     }
