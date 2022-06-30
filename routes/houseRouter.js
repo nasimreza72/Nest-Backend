@@ -37,7 +37,6 @@ houseRouter.get("/:houseId", async (req, res) => {
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
 houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
-  // const options = { new: true, runValidators: true };
 
   console.log("req ---->", req.files.selectedFile);
   console.log("params---->", req.params.id);
@@ -49,10 +48,6 @@ houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
     );
     res.send({ fileID: req.params.id });
 
-    // delete req.body._id
-    // const updatedHouse = await selectedHouse.updateOne({
-    //   $push: { images: req.body.images },
-    // });
   } catch (error) {
     console.log(error);
   }
