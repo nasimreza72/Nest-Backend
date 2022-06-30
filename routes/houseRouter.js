@@ -25,7 +25,9 @@ houseRouter.get("/:houseId", async (req, res) => {
   const id = req.params.houseId;
 
   try {
-    const house = await House.findById(id);
+    const query = House.findById(id);
+    query.populate("conversations");
+    const house = await query.exec();
     res.send(house);
   } catch (error) {
     console.log(error);
@@ -69,6 +71,7 @@ houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
 houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   try {
     const file = await House.findById(req.params.id);
+    console.log('file :>> ', file);
     const absolutePath = path.resolve(file.images[req.params.imageNumber].path);
     res.sendFile(absolutePath);
   } catch (error) {
