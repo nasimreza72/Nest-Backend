@@ -50,9 +50,11 @@ const houseSchema = new Schema({
     images:{type:[fileSchema]},
     price:{type:Number, default:0},
     reviews:{type:[Schema.Types.ObjectId], ref:"review"},
+    conversations:{type:[Schema.Types.ObjectId], ref:"conversation"},
     // is the hosting finished
     finished:{type:Boolean},
-    isTaken:{type:Boolean, default:false}
+    isTaken:{type:Boolean, default:false},
+    step:{type:Number}
 })
 
 const House = model("house",houseSchema);
