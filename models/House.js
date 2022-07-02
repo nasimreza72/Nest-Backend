@@ -6,13 +6,13 @@ const unique = true;
 
 const required=true;
 
-const addressSchema = new Schema({
-    street:{type:String, required},
-    houseNumber:{type:Number},
-    zip:{type:Number},
-    city:{type:String, required},
-    country:{type:String, required},
-},{_id:false})
+// const addressSchema = new Schema({
+//     street:{type:String, required},
+//     houseNumber:{type:Number},
+//     zip:{type:Number},
+//     city:{type:String, required},
+//     country:{type:String, required}
+// },{_id:false})
 
 
 const fileSchema = new mongoose.Schema({
@@ -26,8 +26,9 @@ const fileSchema = new mongoose.Schema({
 
 const houseSchema = new Schema({
     hostID: { type: Schema.Types.ObjectId, ref: "user", required },
-    typeofPlace:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"], default: "House"},
-    address:{type:addressSchema},
+    typeOfPlace:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"], default: "House"},
+    // address:{type:addressSchema},
+    address: {type:String},
     title:{type:String, required},
     rating:{type:Number},
     description:{type:String, required},
@@ -38,13 +39,13 @@ const houseSchema = new Schema({
         bedrooms:{type:Number}
     },
     amenities:{
-        kitchen:{type:Boolean},
         tableware:{type:Boolean},
+        kitchen:{type:Boolean},
         wifi:{type:Boolean},
-        tv:{type:Boolean},
+        television:{type:Boolean},
         refrigerator:{type:Boolean},
         washingMachine:{type:Boolean},
-        workPlace:{type:Boolean}
+        workSpace:{type:Boolean}
     },
     // images:{type:[String]},
     images:{type:[fileSchema]},
