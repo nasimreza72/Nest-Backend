@@ -15,6 +15,23 @@ conversationRouter.get("/",async(req,res,next)=>{
     }
 })
 
+conversationRouter.get("/user/:userId", async(req, res, next)=>{
+    try {
+        const user = await User.findById(req.params.userId);
+        const conversations = await Promise.all(user.conversations.map(async(conversationId)=>{
+            const query = Conversation.findById(conversationId);
+            query.populate("houseId","title images");
+            query.populate("hostId","loginInfo");
+            query.populate("userId","loginInfo");
+            const conversation =await query.exec();
+            return conversation;
+        }))
+        res.send(conversations)
+    } catch (error) {
+        next(createError(400, error.message));
+    }
+})
+
 // create a conversation
 conversationRouter.post("/create",async(req,res,next)=>{
 
