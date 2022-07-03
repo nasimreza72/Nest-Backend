@@ -47,10 +47,21 @@ httpServer.listen(process.env.PORT, () => {
   io.on("connection", (socket) => {
     // socket.emit("Welcome_message", `Welcome Nasim ${socket.id}`);
     // console.log(socket)
+    
+    //to disconnect
+    // socket.on('forceDisconnect', function(){
+    //   socket.disconnect();
+    //   console.log('disconnected :>> ');
+    // });
+
     socket.on("Send_Message", (data) => {
       console.log("data :>> ", data);
       console.log("socket.id :>> ", socket.id);
-      io.emit(data.conversationId, data.text);
+      try {
+        io.emit(data.conversationId, data);
+      } catch (error) {
+        console.log('error :>> ', error);
+      }
     });
   });
 });
