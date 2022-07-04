@@ -6,13 +6,13 @@ const unique = true;
 
 const required=true;
 
-// const addressSchema = new Schema({
-//     street:{type:String, required},
-//     houseNumber:{type:Number},
-//     zip:{type:Number},
-//     city:{type:String, required},
-//     country:{type:String, required}
-// },{_id:false})
+const addressSchema = new Schema({
+    street:{type:String},
+    houseNumber:{type:Number},
+    zip:{type:Number},
+    city:{type:String, required},
+    country:{type:String, required}
+},{_id:false})
 
 
 const fileSchema = new mongoose.Schema({
@@ -27,8 +27,8 @@ const fileSchema = new mongoose.Schema({
 const houseSchema = new Schema({
     hostID: { type: Schema.Types.ObjectId, ref: "user", required },
     typeOfPlace:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"], default: "House"},
-    // address:{type:addressSchema},
-    address: {type:String},
+    address:{type:addressSchema},
+    // address: {type:String},
     title:{type:String, required},
     rating:{type:Number},
     description:{type:String, required},

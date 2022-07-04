@@ -20,6 +20,9 @@ const addressSchema = new Schema({
     zip:{type:Number},
     city:{type:String, required},
     country:{type:String, required},
+    lat:{type:Number},
+    long:{type:Number},
+    formattedAddress:{type:String}
 }, { _id:false })
 
 const userSchema = new Schema({
