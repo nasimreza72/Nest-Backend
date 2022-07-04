@@ -30,7 +30,7 @@ const userSchema = new Schema({
     role:{type:String, enum:["host", "user"]},
     firstName:{type:String},
     lastName:{type:String},
-    gender:{type:String, enum:["Male","Female","Other"]},
+    gender:{type:String, enum:["He","She","Other"]},
     dateOfBirth:{type:Date},
     phoneNumbers:{type:String},
     govermentId:{type:String},
