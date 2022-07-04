@@ -10,8 +10,8 @@ const addressSchema = new Schema({
     street:{type:String},
     houseNumber:{type:Number},
     zip:{type:Number},
-    city:{type:String, required},
-    country:{type:String, required}
+    city:{type:String},
+    country:{type:String}
 },{_id:false})
 
 
