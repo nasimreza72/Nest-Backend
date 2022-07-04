@@ -16,8 +16,6 @@ const userRouter = express.Router();
 userRouter
     .post("/login", async (req,res)=>{
 
-        // console.log("you are init+++++++++++++")
-        // res.send(req.body)
         console.log("req.body.loginInfo ++++++++++++++++++++++++++++", req.body)
         const user = await User.login(req.body)
         if (user) {
@@ -72,9 +70,10 @@ userRouter
         }
     })
 
-    .patch("/:id", checkToken, async (req, res, next)=>{
+    .patch("/:id", /* checkToken, */ async (req, res, next)=>{
+        console.log("thisis req body" + req.body)
         try {
-            const queryOptions = { new: true, runValidators: true }
+            const queryOptions = { new: true, runValidators: true}
             const id = req.params.id
 
             const query = User.findByIdAndUpdate(id, req.body, queryOptions)
