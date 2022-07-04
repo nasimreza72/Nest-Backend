@@ -1,8 +1,14 @@
 import express from "express";
 import House from "../models/House.js";
 import User from "../models/User.js";
+import multer from "multer";
+import path from "path";
+import { query } from "express-validator";
 
 const houseRouter = express.Router();
+
+const multerOptions = { dest: "uploads/" };
+const upload = multer(multerOptions);
 
 houseRouter.post("/create", async (req, res) => {
   try {
@@ -19,20 +25,76 @@ houseRouter.get("/:houseId", async (req, res) => {
   const id = req.params.houseId;
 
   try {
-    const house = await House.findById(id);
+    const query = House.findById(id);
+    query.populate("conversations");
+    const house = await query.exec();
     res.send(house);
   } catch (error) {
     console.log(error);
   }
 });
 
-// it will update the house (to use hosting)
-// houseRouter.patch("/:houseId", (req, res) => {
-houseRouter.patch("/create", async (req, res) => {
-  const options = { new: true, runValidators: true };
+///////////////////   Add address
+
+houseRouter.patch("/create/:houseId", async (req, res) => {
   try {
-    const house = await House.findOneAndUpdate(req.body._id, req.body, options);
-    res.send(house);
+    await House.findByIdAndUpdate({ _id: req.params.houseId }, req.body);
+    res.send({ message: "successful" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//  Image Uploading in hosting page
+
+const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
+
+houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
+  console.log("req ---->", req.files.selectedFile);
+  console.log("params ---->", req.params.id);
+
+  try {
+    const selectedHouse = await House.findByIdAndUpdate(
+      { _id: req.params.id },
+      { images: req.files.selectedFile }
+    );
+    res.send({ fileID: req.params.id });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
+  try {
+    const selectedHouse = await House.findByIdAndUpdate(
+      { _id: req.params.id },
+      { $push: { images: req.files.selectedFile } }
+    );
+    res.send({ fileID: req.params.id });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+////////// Get image after Upload
+
+houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
+  try {
+    const file = await House.findById(req.params.id);
+    console.log('file :>> ', file);
+    const absolutePath = path.resolve(file.images[req.params.imageNumber].path);
+    res.sendFile(absolutePath);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//////// Get All Host Information
+
+houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
+  try {
+    const findHouse = await House.findById(req.params.houseId);
+    res.send(findHouse);
   } catch (error) {
     console.log(error);
   }
