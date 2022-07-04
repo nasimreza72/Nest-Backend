@@ -89,6 +89,17 @@ houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   }
 });
 
+//////// Get All Host Information
+
+houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
+  try {
+    const findHouse = await House.findById(req.params.houseId);
+    res.send(findHouse);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {
   try {
