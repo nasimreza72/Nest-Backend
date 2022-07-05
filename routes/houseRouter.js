@@ -106,7 +106,7 @@ houseRouter.get("/getCity/:city", async (req, res) => {
     const houseListByCity = await House.find({
       "address.city": req.params.city,
     });
-    console.log(houseListByCity);
+    console.log("houseListByCity:>>>>>>>",houseListByCity);
     res.send(houseListByCity);
   } catch (error) {
     console.log(error);
