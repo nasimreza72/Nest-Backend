@@ -11,7 +11,9 @@ const addressSchema = new Schema({
     houseNumber:{type:Number},
     zip:{type:Number},
     city:{type:String},
-    country:{type:String}
+    country:{type:String},
+    lat:{type:Number},
+    long:{type:Number}
 },{_id:false})
 
 
