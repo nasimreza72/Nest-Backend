@@ -37,6 +37,7 @@ const userSchema = new Schema({
     address:{type:addressSchema},
     interests:{type:[String]},
     reasonForHosting:{type:String},
+    describeSituation:{type:String},
     houses:{ type: [Schema.Types.ObjectId], ref:"house" },
     reviews:{ type: [Schema.Types.ObjectId], ref:"review" },
     conversations:{ type: [Schema.Types.ObjectId], ref:"conversation"}
