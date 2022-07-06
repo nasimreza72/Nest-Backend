@@ -103,11 +103,11 @@ houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {
   try {
-    const houseListByCity = await House.find({
-      "address.city": req.params.city,
-    });
-    console.log("houseListByCity:>>>>>>>",houseListByCity);
-    res.send(houseListByCity);
+    const houseCount = (await House.find({"address.city": req.params.city})).length;
+    const houseListByCity = await House.find({"address.city": req.params.city})
+    .skip( req.query.pageNumber > 0 ? ( ( req.query.pageNumber - 1 ) * req.query.nPerPage ) : 0 )
+    .limit( req.query.nPerPage);
+    res.send({houseList:houseListByCity, houseCount:houseCount});
   } catch (error) {
     console.log(error);
   }
