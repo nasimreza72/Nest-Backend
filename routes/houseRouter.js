@@ -15,6 +15,8 @@ houseRouter.post("/create", async (req, res) => {
     const houses = await House.create(req.body);
     res.send(houses);
   } catch (error) {
+    //todo: we should return the error 
+    // like: next(createError(400, error.message));
     console.log(error);
   }
 });
@@ -27,6 +29,8 @@ houseRouter.get("/:houseId", async (req, res) => {
   try {
     const query = House.findById(id);
     query.populate("conversations");
+    // todo: now it works but i want only authorId.loginInfo, not all author details
+    query.populate({path : "reviews", populate:{path:("authorId")}})
     const house = await query.exec();
     res.send(house);
   } catch (error) {

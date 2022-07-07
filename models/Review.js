@@ -10,7 +10,7 @@ const reviewSchema = new Schema({
     text:{type:String,required},
     houseId:{type:Schema.Types.ObjectId,ref:"house", required},
     rate:{type:Number, enum:[1,2,3,4,5], required}
-})
+},{timestamps:true})
 
 const Review = model("review",reviewSchema);
 
