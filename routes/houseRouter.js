@@ -117,6 +117,14 @@ houseRouter.get("/getCity/:city", async (req, res) => {
   }
 });
 
+// houseRouter.patch("/rating", (req,res,next)=>{
+//   try {
+    
+//   } catch (error) {
+    
+//   }
+// })
+
 // it will return the houses, we will send lat, long as query
 //(`api/house?lat='3324.342'&long='324234.324'`)
 // we will send the features and return the filtered houses
