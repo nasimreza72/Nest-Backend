@@ -2,8 +2,6 @@ import  mongoose from "mongoose";
 
 const {Schema, model} = mongoose;
 
-const unique = true;
-
 const required=true;
 
 const addressSchema = new Schema({
@@ -13,9 +11,9 @@ const addressSchema = new Schema({
     city:{type:String},
     country:{type:String},
     lat:{type:Number},
-    long:{type:Number}
+    long:{type:Number},
+    formattedAddress: {type: String}
 },{_id:false})
-
 
 const fileSchema = new mongoose.Schema({
     originalname:   { required, type: String },
@@ -25,12 +23,10 @@ const fileSchema = new mongoose.Schema({
     size:           { required, type: Number },
 }, {_id:false})
 
-
 const houseSchema = new Schema({
     hostID: { type: Schema.Types.ObjectId, ref: "user", required },
-    typeOfPlace:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"], default: "House"},
+    typeOfPlace:{type:String, enum:["Apartment","House","Private Room","Shared Room","Attic"], required: true},
     address:{type:addressSchema},
-    // address: {type:String},
     title:{type:String, required},
     rating:{type:Number},
     description:{type:String, required},
