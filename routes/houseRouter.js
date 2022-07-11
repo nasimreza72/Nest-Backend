@@ -102,12 +102,20 @@ houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
 
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {
+  let filterObj;
+  console.log('req.query.typeOfPlace :>>-------------------------- ', typeof req.query.typeOfPlace);
+
+  if(req.query.typeOfPlace!=="null"){
+    filterObj = { "address.city": req.params.city, "typeOfPlace":req.query.typeOfPlace }
+  }
+  else {
+    filterObj={ "address.city": req.params.city}
+  } 
+  console.log('filterObj :>>-------------------------- ', filterObj);
   try {
-    const houseCount = (await House.find({ "address.city": req.params.city }))
+    const houseCount = (await House.find(filterObj))
       .length;
-    const houseListByCity = await House.find({
-      "address.city": req.params.city,
-    })
+    const houseListByCity = await House.find(filterObj)
       .skip(
         req.query.pageNumber > 0
           ? (req.query.pageNumber - 1) * req.query.nPerPage
