@@ -7,7 +7,9 @@ import { query } from "express-validator";
 
 const houseRouter = express.Router();
 
-const multerOptions = { dest: "uploads/" };
+// const multerOptions = { dest: "uploads/" };
+const __dirname = path.resolve(path.dirname('')) 
+const multerOptions = {dest: path.join(__dirname+'/uploads')};
 const upload = multer(multerOptions);
 
 houseRouter.post("/create", async (req, res) => {
@@ -54,10 +56,11 @@ houseRouter.patch("/:houseId", async (req, res) => {
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
 houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
-  console.log("req ---->", req.files.selectedFile);
-  console.log("params ---->", req.params.id);
+  console.log('req.params.id :>> ', req.params.id)
 
   try {
+    console.log('req.params.id :>> ', req.params.id)
+
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
       { images: req.files.selectedFile }
@@ -85,7 +88,6 @@ houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
 houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   try {
     const file = await House.findById(req.params.id);
-    console.log('file :>> ', file);
     const absolutePath = path.resolve(file.images[req.params.imageNumber].path);
     res.sendFile(absolutePath);
   } catch (error) {
@@ -107,11 +109,18 @@ houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {
   try {
-    const houseCount = (await House.find({"address.city": req.params.city})).length;
-    const houseListByCity = await House.find({"address.city": req.params.city})
-    .skip( req.query.pageNumber > 0 ? ( ( req.query.pageNumber - 1 ) * req.query.nPerPage ) : 0 )
-    .limit( req.query.nPerPage);
-    res.send({houseList:houseListByCity, houseCount:houseCount});
+    const houseCount = (await House.find({ "address.city": req.params.city }))
+      .length;
+    const houseListByCity = await House.find({
+      "address.city": req.params.city,
+    })
+      .skip(
+        req.query.pageNumber > 0
+          ? (req.query.pageNumber - 1) * req.query.nPerPage
+          : 0
+      )
+      .limit(req.query.nPerPage);
+    res.send({ houseList: houseListByCity, houseCount: houseCount });
   } catch (error) {
     console.log(error);
   }
@@ -129,5 +138,21 @@ houseRouter.get("/getCity/:city", async (req, res) => {
 //(`api/house?lat='3324.342'&long='324234.324'`)
 // we will send the features and return the filtered houses
 houseRouter.get("/", (req, res) => {});
+
+///// Filter type of place 
+
+houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) => {
+  try {
+    const filteredHouse = await House.find({
+      "address.city": req.params.activeCity,
+      "typeOfPlace": req.params.selectedPlace,
+    })
+    res.send(filteredHouse);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+///
 
 export default houseRouter;
