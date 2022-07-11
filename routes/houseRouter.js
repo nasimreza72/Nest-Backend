@@ -7,9 +7,7 @@ import { query } from "express-validator";
 
 const houseRouter = express.Router();
 
-// const multerOptions = { dest: "uploads/" };
-const __dirname = path.resolve(path.dirname('')) 
-const multerOptions = {dest: path.join(__dirname+'/uploads')};
+const multerOptions = { dest: "uploads/" };
 const upload = multer(multerOptions);
 
 houseRouter.post("/create", async (req, res) => {
@@ -56,11 +54,7 @@ houseRouter.patch("/:houseId", async (req, res) => {
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
 houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
-  console.log('req.params.id :>> ', req.params.id)
-
   try {
-    console.log('req.params.id :>> ', req.params.id)
-
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
       { images: req.files.selectedFile }
@@ -146,7 +140,8 @@ houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) =
     const filteredHouse = await House.find({
       "address.city": req.params.activeCity,
       "typeOfPlace": req.params.selectedPlace,
-    })
+    });
+
     res.send(filteredHouse);
   } catch (error) {
     console.log(error);
