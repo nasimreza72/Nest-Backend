@@ -7,7 +7,9 @@ import { query } from "express-validator";
 
 const houseRouter = express.Router();
 
-const multerOptions = { dest: "uploads/" };
+// const multerOptions = { dest: "uploads/" };
+const __dirname = path.resolve(path.dirname('')) 
+const multerOptions = {dest: path.join(__dirname+'/uploads')};
 const upload = multer(multerOptions);
 
 houseRouter.post("/create", async (req, res) => {
@@ -82,7 +84,6 @@ houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
 houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   try {
     const file = await House.findById(req.params.id);
-    console.log('imageNumber :>> ', req.params.imageNumber);
     const absolutePath = path.resolve(file.images[req.params.imageNumber].path);
     res.sendFile(absolutePath);
   } catch (error) {
