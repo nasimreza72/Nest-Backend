@@ -54,7 +54,11 @@ houseRouter.patch("/create/:houseId", async (req, res) => {
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
 houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
+  console.log('req.params.id :>> ', req.params.id)
+
   try {
+    console.log('req.params.id :>> ', req.params.id)
+
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
       { images: req.files.selectedFile }
@@ -82,6 +86,7 @@ houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
 houseRouter.get(`/getImage/:id/:imageNumber`, async (req, res) => {
   try {
     const file = await House.findById(req.params.id);
+    console.log('imageNumber :>> ', req.params.imageNumber);
     const absolutePath = path.resolve(file.images[req.params.imageNumber].path);
     res.sendFile(absolutePath);
   } catch (error) {
@@ -133,22 +138,20 @@ houseRouter.get("/getCity/:city", async (req, res) => {
 // we will send the features and return the filtered houses
 houseRouter.get("/", (req, res) => {});
 
-///// Testing
+///// Filter type of place 
 
 houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) => {
   try {
     const filteredHouse = await House.find({
       "address.city": req.params.activeCity,
       "typeOfPlace": req.params.selectedPlace,
-    });
-    console.log("filteredHouse :>> ", req.params.activeCity , req.params.selectedPlace);
-
+    })
     res.send(filteredHouse);
   } catch (error) {
     console.log(error);
   }
 });
 
-////////////
+///
 
 export default houseRouter;
