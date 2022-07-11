@@ -41,13 +41,13 @@ houseRouter.get("/:houseId", async (req, res) => {
 });
 
 ///////////////////   Add address
-
-houseRouter.patch("/create/:houseId", async (req, res) => {
+// update the address
+houseRouter.patch("/:houseId", async (req, res) => {
   try {
     await House.findByIdAndUpdate({ _id: req.params.houseId }, req.body);
     res.send({ message: "successful" });
   } catch (error) {
-    console.log(error);
+    next(createError(400, error.message));
   }
 });
 
