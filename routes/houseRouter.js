@@ -40,12 +40,12 @@ houseRouter.get("/:houseId", async (req, res) => {
 
 ///////////////////   Add address
 // update the address
-houseRouter.patch("/:houseId", async (req, res) => {
+houseRouter.patch("/create/:houseId", async (req, res) => {
   try {
     await House.findByIdAndUpdate({ _id: req.params.houseId }, req.body);
     res.send({ message: "successful" });
   } catch (error) {
-    next(createError(400, error.message));
+    console.log(error);
   }
 });
 
@@ -139,7 +139,7 @@ houseRouter.get("/getCity/:city", async (req, res) => {
 // it will return the houses, we will send lat, long as query
 //(`api/house?lat='3324.342'&long='324234.324'`)
 // we will send the features and return the filtered houses
-houseRouter.get("/", (req, res) => {});
+// houseRouter.get("/", (req, res) => {});
 
 ///// Filter type of place 
 
