@@ -3,10 +3,11 @@ import createError from "http-errors";
 import Conversation from "../models/Conversation.js";
 import House from "../models/House.js";
 import User from "../models/User.js";
+import checkToken from "../middleware/checkToken.js";
 
 const conversationRouter = express.Router();
 
-conversationRouter.get("/",async(req,res,next)=>{
+conversationRouter.get("/",checkToken, async(req,res,next)=>{
     try {
         const conversations = await Conversation.find({})
         res.send(conversations)
@@ -15,7 +16,7 @@ conversationRouter.get("/",async(req,res,next)=>{
     }
 })
 
-conversationRouter.get("/user/:userId", async(req, res, next)=>{
+conversationRouter.get("/user/:userId", checkToken, async(req, res, next)=>{
     try {
         const user = await User.findById(req.params.userId);
         const conversations = await Promise.all(user.conversations.map(async(conversationId)=>{
@@ -33,7 +34,7 @@ conversationRouter.get("/user/:userId", async(req, res, next)=>{
 })
 
 // create a conversation
-conversationRouter.post("/create",async(req,res,next)=>{
+conversationRouter.post("/create",checkToken, async(req,res,next)=>{
 
     try {
         const conversation = await Conversation.create(req.body);
@@ -63,7 +64,7 @@ conversationRouter.post("/create",async(req,res,next)=>{
 
 
 // we will send the chatId and get the chat
-conversationRouter.get("/:conversationId", async(req,res, next)=>{
+conversationRouter.get("/:conversationId", checkToken, async(req,res, next)=>{
     try {
         const conversationId = req.params.conversationId;
         const query =  Conversation.findById(conversationId);
@@ -80,7 +81,7 @@ conversationRouter.get("/:conversationId", async(req,res, next)=>{
 })
 
 // send the chat id and update the conversation
-conversationRouter.patch("/:conversationId", async(req,res,next)=>{ 
+conversationRouter.patch("/:conversationId",checkToken, async(req,res,next)=>{ 
     const options = {new:true, runValidators:true};
     const conversationId = req.params.conversationId;
     try {
