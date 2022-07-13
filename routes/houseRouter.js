@@ -3,6 +3,7 @@ import House from "../models/House.js";
 import User from "../models/User.js";
 import multer from "multer";
 import path from "path";
+import checkToken from "../middleware/checkToken.js";
 import { query } from "express-validator";
 
 const houseRouter = express.Router();
@@ -10,7 +11,7 @@ const houseRouter = express.Router();
 const multerOptions = { dest: "uploads/" };
 const upload = multer(multerOptions);
 
-houseRouter.post("/create", async (req, res) => {
+houseRouter.post("/create", checkToken, async (req, res) => {
   try {
     const houses = await House.create(req.body);
     res.send(houses);
@@ -40,7 +41,7 @@ houseRouter.get("/:houseId", async (req, res) => {
 
 ///////////////////   Add address
 // update the address
-houseRouter.patch("/create/:houseId", async (req, res) => {
+houseRouter.patch("/create/:houseId",checkToken, async (req, res) => {
   try {
     await House.findByIdAndUpdate({ _id: req.params.houseId }, req.body);
     res.send({ message: "successful" });
@@ -53,7 +54,7 @@ houseRouter.patch("/create/:houseId", async (req, res) => {
 
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
-houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
+houseRouter.patch("/addImage/:id", checkToken, handleUpload, async (req, res) => {
   try {
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
@@ -65,7 +66,7 @@ houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
   }
 });
 
-houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
+houseRouter.patch("/addSecondImage/:id", checkToken, handleUpload, async (req, res) => {
   try {
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
