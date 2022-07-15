@@ -3,10 +3,11 @@ import Review from "../models/Review.js";
 import User from "../models/User.js";
 import House from "../models/House.js"
 import createError from 'http-errors';
+import checkToken from "../middleware/checkToken.js";
 
 const reviewRouter = express.Router();
 
-reviewRouter.post("/create",async(req,res,next)=>{
+reviewRouter.post("/create",checkToken, async(req,res,next)=>{
     try {
         const review = await Review.create(req.body);
         const user = await User.findById(req.body.authorId);
@@ -32,7 +33,7 @@ reviewRouter.get("/:houseId",async(req,res,next)=>{
     }
 })
 
-reviewRouter.delete("/:reviewId", async(req,res,next)=>{
+reviewRouter.delete("/:reviewId", checkToken, async(req,res,next)=>{
     const reviewId = req.params.reviewId;
     try {
         const review = await Review.findById(reviewId);
@@ -45,7 +46,5 @@ reviewRouter.delete("/:reviewId", async(req,res,next)=>{
         next(createError(400, error.message));
     }    
 })
-
-
 
 export default reviewRouter;
