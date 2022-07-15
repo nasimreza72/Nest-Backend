@@ -3,6 +3,7 @@ import House from "../models/House.js";
 import User from "../models/User.js";
 import multer from "multer";
 import path from "path";
+import checkToken from "../middleware/checkToken.js";
 import { query } from "express-validator";
 
 const houseRouter = express.Router();
@@ -10,7 +11,7 @@ const houseRouter = express.Router();
 const multerOptions = { dest: "uploads/" };
 const upload = multer(multerOptions);
 
-houseRouter.post("/create", async (req, res) => {
+houseRouter.post("/create", checkToken, async (req, res) => {
   try {
     const houses = await House.create(req.body);
     res.send(houses);
@@ -39,8 +40,8 @@ houseRouter.get("/:houseId", async (req, res) => {
 });
 
 ///////////////////   Add address
-
-houseRouter.patch("/create/:houseId", async (req, res) => {
+// update the address
+houseRouter.patch("/create/:houseId",checkToken, async (req, res) => {
   try {
     await House.findByIdAndUpdate({ _id: req.params.houseId }, req.body);
     res.send({ message: "successful" });
@@ -53,7 +54,7 @@ houseRouter.patch("/create/:houseId", async (req, res) => {
 
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
-houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
+houseRouter.patch("/addImage/:id", checkToken, handleUpload, async (req, res) => {
   try {
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
@@ -65,7 +66,7 @@ houseRouter.patch("/addImage/:id", handleUpload, async (req, res) => {
   }
 });
 
-houseRouter.patch("/addSecondImage/:id", handleUpload, async (req, res) => {
+houseRouter.patch("/addSecondImage/:id", checkToken, handleUpload, async (req, res) => {
   try {
     const selectedHouse = await House.findByIdAndUpdate(
       { _id: req.params.id },
@@ -102,12 +103,20 @@ houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
 
 // it will return the houses
 houseRouter.get("/getCity/:city", async (req, res) => {
+  let filterObj;
+  console.log('req.query.typeOfPlace :>>-------------------------- ', typeof req.query.typeOfPlace);
+
+  if(req.query.typeOfPlace!=="null"){
+    filterObj = { "address.city": req.params.city, "typeOfPlace":req.query.typeOfPlace }
+  }
+  else {
+    filterObj={ "address.city": req.params.city}
+  } 
+  console.log('filterObj :>>-------------------------- ', filterObj);
   try {
-    const houseCount = (await House.find({ "address.city": req.params.city }))
+    const houseCount = (await House.find(filterObj))
       .length;
-    const houseListByCity = await House.find({
-      "address.city": req.params.city,
-    })
+    const houseListByCity = await House.find(filterObj)
       .skip(
         req.query.pageNumber > 0
           ? (req.query.pageNumber - 1) * req.query.nPerPage
@@ -131,9 +140,9 @@ houseRouter.get("/getCity/:city", async (req, res) => {
 // it will return the houses, we will send lat, long as query
 //(`api/house?lat='3324.342'&long='324234.324'`)
 // we will send the features and return the filtered houses
-houseRouter.get("/", (req, res) => {});
+// houseRouter.get("/", (req, res) => {});
 
-///// Testing
+///// Filter type of place 
 
 houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) => {
   try {
@@ -141,7 +150,6 @@ houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) =
       "address.city": req.params.activeCity,
       "typeOfPlace": req.params.selectedPlace,
     });
-    console.log("filteredHouse :>> ", req.params.activeCity , req.params.selectedPlace);
 
     res.send(filteredHouse);
   } catch (error) {
@@ -149,6 +157,6 @@ houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) =
   }
 });
 
-////////////
+///
 
 export default houseRouter;
