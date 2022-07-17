@@ -102,11 +102,18 @@ houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
 });
 
 // it will return the houses
+
 houseRouter.get("/getCity/:city", async (req, res) => {
   let filterObj;
   console.log('req.query.typeOfPlace :>>-------------------------- ', typeof req.query.typeOfPlace);
 
-  if(req.query.typeOfPlace!=="null"){
+  if(req.query.housePrice !== "null" && req.query.typeOfPlace !== "null"){
+    filterObj = { "address.city": req.params.city, "price": req.query.housePrice, "typeOfPlace":req.query.typeOfPlace}
+  }
+  else if(req.query.housePrice !== "null"){
+    filterObj = { "address.city": req.params.city, "price": req.query.housePrice}
+  }
+  else if(req.query.typeOfPlace!=="null"){
     filterObj = { "address.city": req.params.city, "typeOfPlace":req.query.typeOfPlace }
   }
   else {
@@ -142,21 +149,5 @@ houseRouter.get("/getCity/:city", async (req, res) => {
 // we will send the features and return the filtered houses
 // houseRouter.get("/", (req, res) => {});
 
-///// Filter type of place 
-
-houseRouter.get(`/getPrivateRoom/:activeCity/:selectedPlace`, async (req, res) => {
-  try {
-    const filteredHouse = await House.find({
-      "address.city": req.params.activeCity,
-      "typeOfPlace": req.params.selectedPlace,
-    });
-
-    res.send(filteredHouse);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-///
 
 export default houseRouter;
