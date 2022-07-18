@@ -80,7 +80,7 @@ userRouter
     })
 
     .patch("/:id", checkToken, async (req, res, next)=>{
-        console.log("thisis req body" + req.body.address)
+        console.log("thi is req body ####### " + req.params.id)
         try {
             const queryOptions = { new: true, runValidators: true}
             const id = req.params.id
