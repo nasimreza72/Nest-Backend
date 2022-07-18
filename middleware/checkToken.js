@@ -31,7 +31,7 @@ function checkToken(req,res,next) {
                     }
                     next()
                 })
-                .catch(e => {
+                .catch(error => {
                     return res.status(400).send(error.message)
                 })
         })

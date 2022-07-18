@@ -15,14 +15,14 @@ const LoginSchema = new Schema({
 }, { _id:false })
 
 const addressSchema = new Schema({
-    street:{type:String, required},
+    street:{type:String},
     houseNumber:{type:Number},
     zip:{type:Number},
-    city:{type:String, required},
-    country:{type:String, required},
-    lat:{type:Number},
-    long:{type:Number},
-    formattedAddress:{type:String}
+    city:{type:String},
+    country:{type:String},
+    // lat:{type:Number},
+    // long:{type:Number},
+    // formattedAddress:{type:String}
 }, { _id:false })
 
 const userSchema = new Schema({
