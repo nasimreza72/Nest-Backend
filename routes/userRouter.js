@@ -24,7 +24,7 @@ userRouter
                 userId: user._id 
             }
             const options ={
-                    expiresIn: "30m"
+                    expiresIn: "60m"
             }
             const token = jwt.sign(payload,process.env.SECRET,options)
             return res.send({ ...user.toJSON(), token}).status({ Login: 'sucess!!' })
