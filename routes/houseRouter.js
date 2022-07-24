@@ -56,7 +56,7 @@ const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
 houseRouter.patch("/addImage/:id", checkToken, handleUpload, async (req, res) => {
   try {
-    const selectedHouse = await House.findByIdAndUpdate(
+    await House.findByIdAndUpdate(
       { _id: req.params.id },
       { images: req.files.selectedFile }
     );
@@ -121,8 +121,7 @@ houseRouter.get("/getCity/:city", async (req, res) => {
   } 
   console.log('filterObj :>>-------------------------- ', filterObj);
   try {
-    const houseCount = (await House.find(filterObj))
-      .length;
+    const houseCount = (await House.count(filterObj))
     const houseListByCity = await House.find(filterObj)
       .skip(
         req.query.pageNumber > 0
