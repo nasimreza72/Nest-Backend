@@ -1,10 +1,8 @@
 import express from "express";
 import House from "../models/House.js";
-import User from "../models/User.js";
 import multer from "multer";
 import path from "path";
 import checkToken from "../middleware/checkToken.js";
-import { query } from "express-validator";
 
 const houseRouter = express.Router();
 
@@ -16,7 +14,7 @@ houseRouter.post("/create", checkToken, async (req, res) => {
     const houses = await House.create(req.body);
     res.send(houses);
   } catch (error) {
-    //todo: we should return the error 
+    //todo: we should return the error
     // like: next(createError(400, error.message));
     console.log(error);
   }
@@ -31,7 +29,7 @@ houseRouter.get("/:houseId", async (req, res) => {
     const query = House.findById(id);
     query.populate("conversations");
     // todo: now it works but i want only authorId.loginInfo, not all author details
-    query.populate({path : "reviews", populate:{path:("authorId")}})
+    query.populate({ path: "reviews", populate: { path: "authorId" } });
     const house = await query.exec();
     res.send(house);
   } catch (error) {
@@ -41,7 +39,7 @@ houseRouter.get("/:houseId", async (req, res) => {
 
 ///////////////////   Add address
 // update the address
-houseRouter.patch("/create/:houseId",checkToken, async (req, res) => {
+houseRouter.patch("/create/:houseId", checkToken, async (req, res) => {
   try {
     await House.findByIdAndUpdate({ _id: req.params.houseId }, req.body);
     res.send({ message: "successful" });
@@ -54,29 +52,39 @@ houseRouter.patch("/create/:houseId",checkToken, async (req, res) => {
 
 const handleUpload = upload.fields([{ name: "selectedFile", maxCount: 1 }]);
 
-houseRouter.patch("/addImage/:id", checkToken, handleUpload, async (req, res) => {
-  try {
-    await House.findByIdAndUpdate(
-      { _id: req.params.id },
-      { images: req.files.selectedFile }
-    );
-    res.send({ fileID: req.params.id });
-  } catch (error) {
-    console.log(error);
+houseRouter.patch(
+  "/addImage/:id",
+  checkToken,
+  handleUpload,
+  async (req, res) => {
+    try {
+      await House.findByIdAndUpdate(
+        { _id: req.params.id },
+        { images: req.files.selectedFile }
+      );
+      res.send({ fileID: req.params.id });
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
-houseRouter.patch("/addSecondImage/:id", checkToken, handleUpload, async (req, res) => {
-  try {
-    const selectedHouse = await House.findByIdAndUpdate(
-      { _id: req.params.id },
-      { $push: { images: req.files.selectedFile } }
-    );
-    res.send({ fileID: req.params.id });
-  } catch (error) {
-    console.log(error);
+houseRouter.patch(
+  "/addSecondImage/:id",
+  checkToken,
+  handleUpload,
+  async (req, res) => {
+    try {
+      const selectedHouse = await House.findByIdAndUpdate(
+        { _id: req.params.id },
+        { $push: { images: req.files.selectedFile } }
+      );
+      res.send({ fileID: req.params.id });
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 ////////// Get image after Upload
 
@@ -105,23 +113,33 @@ houseRouter.get(`/getAllHostInfo/:houseId/`, async (req, res) => {
 
 houseRouter.get("/getCity/:city", async (req, res) => {
   let filterObj;
-  console.log('req.query.typeOfPlace :>>-------------------------- ', typeof req.query.typeOfPlace);
+  console.log(
+    "req.query.typeOfPlace :>>-------------------------- ",
+    typeof req.query.typeOfPlace
+  );
 
-  if(req.query.housePrice !== "null" && req.query.typeOfPlace !== "null"){
-    filterObj = { "address.city": req.params.city, "price": req.query.housePrice, "typeOfPlace":req.query.typeOfPlace}
+  if (req.query.housePrice !== "null" && req.query.typeOfPlace !== "null") {
+    filterObj = {
+      "address.city": req.params.city,
+      price: req.query.housePrice,
+      typeOfPlace: req.query.typeOfPlace,
+    };
+  } else if (req.query.housePrice !== "null") {
+    filterObj = {
+      "address.city": req.params.city,
+      price: req.query.housePrice,
+    };
+  } else if (req.query.typeOfPlace !== "null") {
+    filterObj = {
+      "address.city": req.params.city,
+      typeOfPlace: req.query.typeOfPlace,
+    };
+  } else {
+    filterObj = { "address.city": req.params.city };
   }
-  else if(req.query.housePrice !== "null"){
-    filterObj = { "address.city": req.params.city, "price": req.query.housePrice}
-  }
-  else if(req.query.typeOfPlace!=="null"){
-    filterObj = { "address.city": req.params.city, "typeOfPlace":req.query.typeOfPlace }
-  }
-  else {
-    filterObj={ "address.city": req.params.city}
-  } 
-  console.log('filterObj :>>-------------------------- ', filterObj);
+  console.log("filterObj :>>-------------------------- ", filterObj);
   try {
-    const houseCount = (await House.count(filterObj))
+    const houseCount = await House.count(filterObj);
     const houseListByCity = await House.find(filterObj)
       .skip(
         req.query.pageNumber > 0
@@ -135,18 +153,9 @@ houseRouter.get("/getCity/:city", async (req, res) => {
   }
 });
 
-// houseRouter.patch("/rating", (req,res,next)=>{
-//   try {
-    
-//   } catch (error) {
-    
-//   }
-// })
-
 // it will return the houses, we will send lat, long as query
 //(`api/house?lat='3324.342'&long='324234.324'`)
 // we will send the features and return the filtered houses
 // houseRouter.get("/", (req, res) => {});
-
 
 export default houseRouter;
