@@ -1,0 +1,126 @@
+@url =  http://localhost:7777
+
+###
+
+// Register a new user or admin....................
+POST http://localhost:7777/api/user/register
+Content-Type: application/json
+
+
+{
+    "loginInfo": 
+    {
+        "email":"ponni@hof",
+        "password":"123RonRon!!!"
+    },
+    "role": "user"
+}
+###
+
+
+//LOGIN user or HOst..............................
+POST http://localhost:7777/api/user/login
+Content-Type: application/json
+
+
+{
+        "email":"ponni@hof",
+        "password":"123RonRon!!!"
+         
+}
+###
+
+
+// Update user/Host...................................... 
+PATCH http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+Content-Type: application/json
+
+{
+    "loginInfo":{
+        "email":"Benji@Ginjo.de"
+    }
+    
+}
+###
+
+// Get the User or Host by ID........................
+GET http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+Content-Type: application/json
+
+###
+
+// Delete the user/Host
+DELETE http://localhost:7777/api/user/62aafc1ce396b03c82def4ed
+
+
+###
+DELETE http://localhost:7777/api/user/62b18ebea4f42aab7f67e0f1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmIxOGViZWE0ZjQyYWFiN2Y2N2UwZjEiLCJpYXQiOjE2NTU4MDM1OTQsImV4cCI6MTY1NTgwNTM5NH0.gdC_xpC5be4MojAQfY7xqPkzBDr40Pg2UaQoP08zsuY 
+
+
+
+###  Create Host account
+
+POST http://localhost:7777/api/house/create
+Content-Type: application/json
+
+{
+        "hostID": "62aafbfae396b03c82def4e9",
+        "address":{
+            "street":"amrumer Staße",
+            "houseNumber":26,
+            "zip": 18359,
+            "city": "Hannover",
+            "country": "Germany"
+        },
+        "title": "3 Bed rooms apartment",
+        "rating": 4.5,
+        "description": "Cosy place for small family",
+        "guests": {
+            "beds": 4,
+            "kids": 2,
+            "adult": 4
+        },
+        "amenities": {
+            "kitchen": true
+        },
+        "images" : {      
+            "originalname": "20211018_194222.jpg",
+            "mimetype": "image/jpeg",
+            "filename": "48f118fa9a81151eccc02538c8073b06",
+            "path": "uploads/48f118fa9a81151eccc02538c8073b06",
+            "size": 196992
+        }
+
+}
+
+### Get House
+
+GET http://localhost:7777/api/house/62b2f4c66b36cb314260106d
+Content-Type: application/json
+
+
+### Update House
+
+PATCH  http://localhost:7777/api/house/update
+Content-Type: application/json
+
+{
+  "_id": "62bb0babcbef293a496d4b63",
+  "images" : {      
+            "originalname": "20211018_194222.jpg",
+            "mimetype": "image/jpeg",
+            "filename": "48f118fa9a81151eccc02538c8073b06",
+            "path": "uploads/48f118fa9a81151eccc02538c8073b06",
+            "size": 161089
+        }
+}
+
+### Find house by City Name
+
+GET http://localhost:7777/api/house/getCity/Berlin
+Content-Type: application/json
+
+
+
+
