@@ -39,7 +39,7 @@ userRouter
             
             try{ 
 
-                const errors = validationResult(req.body.loginInfo)
+                const errors = validationResult(req)
                 if (!errors.isEmpty()) {
                     return res.status(400).send({
                         errors: errors.array().map(e => e.msg)
